@@ -22,5 +22,5 @@ Exam_ReconcileSourceTarger of cclaim
     ${target_count}=    Convert To Integer    @{count[0]}
     Disconnect From Database
     #comparation
-    log    Target have ${target_count} records -- Source have ${source_count} records
+    log     ********** Source have ${source_count} records -- Target have ${target_count} records **********
     Should Be Equal    ${source_count}    ${target_count}
