@@ -1,6 +1,26 @@
 *** Settings ***
 Library           DatabaseLibrary
-Resource          ../../keywords/edm.txt
-Resource          ../../Repositories/${env}/${dbname}_${env}_Connection.txt
+Resource          ../../Repositories/Table_ListName/cclaim_list.txt
 
 *** Test Cases ***
+EDW1_SIT_0009_0001_ReconcileSourceTarger of cclaim_teamuser
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'teamuser%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_teamuser}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_teamuser;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}

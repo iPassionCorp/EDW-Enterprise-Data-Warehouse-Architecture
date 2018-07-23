@@ -3,7 +3,7 @@ Library           DatabaseLibrary
 Resource          ../../Repositories/Table_ListName/cclaim_list.txt
 
 *** Test Cases ***
-Exam_ReconcileSourceTarger of cclaim
+EDW1_SIT_0002_0001_ReconcileSourceTarger of cclaim_oacmYYMM
     #Source
     Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
     @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'oacm%';

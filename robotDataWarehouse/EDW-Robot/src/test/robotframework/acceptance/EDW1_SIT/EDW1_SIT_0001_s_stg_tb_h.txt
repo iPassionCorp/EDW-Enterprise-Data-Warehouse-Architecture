@@ -1,6 +1,290 @@
 *** Settings ***
 Library           DatabaseLibrary
-Resource          ../../keywords/edm.txt
-Resource          ../../Repositories/${env}/${dbname}_${env}_Connection.txt
+Resource          ../../Repositories/Table_ListName/cclaim_list.txt
 
 *** Test Cases ***
+EDW1_SIT_0001_0001_ReconcileSourceTarger of cclaim_ihdsYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ihds%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ihds}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0002_ReconcileSourceTarger of cclaim_ihhpYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ihhp%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ihhp}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0003_ReconcileSourceTarger of cclaim_ihlpYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ihlp%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ihlp}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0004_ReconcileSourceTarger of cclaim_ihwkYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ihwk%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ihwk}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0005_ReconcileSourceTarger of cclaim_ohdsYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohds%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohds}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0006_ReconcileSourceTarger of cclaim_ohhaYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohha%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohha}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0007_ReconcileSourceTarger of cclaim_ohpaYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohpa%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohpa}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0008_ReconcileSourceTarger of cclaim_ohsdYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohsd%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohsd}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0009_ReconcileSourceTarger of cclaim_ohspYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohsp%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohsp}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_ohsp;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0010_ReconcileSourceTarger of cclaim_ohsrYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohsr%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohsr}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0011_ReconcileSourceTarger of cclaim_ohwkYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohwk%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohwk}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0012_ReconcileSourceTarger of cclaim_ohhsYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohhs%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohhs}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
+
+EDW1_SIT_0001_0013_ReconcileSourceTarger of cclaim_ohcnYYMM
+    #Source
+    Connect To Database Using Custom Params    psycopg2    database='tlserver4', user='jenkins', password='Jenkins2018', host='10.102.47.200', port=5432
+    @{i}=    Query    SELECT count(table_name) FROM information_schema.tables WHERE TABLE_SCHEMA = 'cclaim' AND TABLE_NAME like 'ohcn%';
+    ${i}=    Convert To Integer    @{i[0]}
+    log    ${i}
+    ${R}=    Set Variable    0
+    ${source_count}=    set variable    0
+    : FOR    ${R}    IN RANGE    ${i}
+    \    @{count}=    Query    select count(0) from cclaim.@{cclaim_tb_ohcn}[${R}]
+    \    ${result}=    Convert To Integer    @{count[0]}
+    \    ${source_count}=    Evaluate    ${source_count} + ${result}
+    Disconnect From Database
+    #Target
+    Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
+    ${target_count}=    Convert To Integer    @{count[0]}
+    Disconnect From Database
+    #comparation
+    log    ********** Source have ${source_count} records -- Target have ${target_count} records **********
+    Should Be Equal    ${source_count}    ${target_count}
