@@ -194,7 +194,7 @@ EDW1_SIT_0001_0009_ReconcileSourceTarger of cclaim_ohspYYMM
     Disconnect From Database
     #Target
     Connect To Database Using Custom Params    psycopg2    database='edw', user='postgres', password='123456', host='206.1.2.61', port=5432
-    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_ohsp;
+    @{count}=    Query    SELECT count(0) FROM stage_s.s_stg_tb_h;
     ${target_count}=    Convert To Integer    @{count[0]}
     Disconnect From Database
     #comparation
